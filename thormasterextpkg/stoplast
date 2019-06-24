@@ -1,0 +1,4 @@
+#!/bin/bash
+
+lastname=$(docker ps --format '{{.Names}}' | tail -n 1)
+docker stop ${lastname}

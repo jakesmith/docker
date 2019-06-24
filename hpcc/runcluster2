@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+  echo Usage: runluster CLUSTERNAME NUMSLAVES
+  exit 1
+fi
+
+cluster=$1
+numslaves=$2
+
+echo "RUNNING: ./runhpcc "${cluster}_thormaster" 192.168.10.2"
+./runhpcc "${cluster}_thormaster" 192.168.10.2
+for slave in $(seq 1 ${numslaves}); do
+  let "ipnum = 2 + ${slave}"
+  echo "RUNNING: ./runhpcc "${cluster}_thorslave${slave}" 192.168.10.${ipnum}"
+  ./runhpcc "${cluster}_thorslave${slave}" 192.168.10.${ipnum}
+done

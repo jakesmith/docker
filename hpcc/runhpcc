@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+ echo Usage: run NAME IP
+ exit 1
+fi
+
+ip=$2
+name=$1
+
+mythornet=$(docker network ls | awk '{print $2}' | grep '^mythornet')
+if [ -z "$mythornet" ]; then
+  docker network create --subnet=192.168.10.0/24 mythornet
+fi
+
+docker run -d --rm --net mythornet --ip ${ip} --name ${name} -v /home/jsmith/dev/docker/sharedfolder:/data -ti jcs/thormaster:0.1
+

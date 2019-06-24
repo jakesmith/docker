@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+  echo Usage: runluster CLUSTERNAME
+  exit 1
+fi
+
+cluster=$1
+
+echo "Running ${cluster}_thormaster on 192.168.10.2"
+echo "Running ${cluster}_thorslave1 on 192.168.10.3"
+echo "Running ${cluster}_thorslave2 on 192.168.10.4"
+
+./runhpcc "${cluster}_thormaster" 192.168.10.2
+./runhpcc "${cluster}_thorslave1" 192.168.10.3
+./runhpcc "${cluster}_thorslave2" 192.168.10.4

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/opt/HPCCSystems/bin/ecl run -g --cluster=$1 -fpickBestEngine=0 -fdebugquery=1 -fsaveCppTempFiles=1 -fapplyInstantEclTransformations -fapplyInstantEclTransformationsLimit=100 ${@:2}
+variant=$1

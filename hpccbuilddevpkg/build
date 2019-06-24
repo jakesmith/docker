@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+ echo Usage: build SRCDIR
+ exit 1
+fi
+
+echo rsync -avzh $ –cvs-exclude '.git' $1 .
+rsync -avzh –cvs-exclude $1 .
+
+docker build -t jcs/hpccbuilddevpkg:latest .

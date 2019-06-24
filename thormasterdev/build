@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker build -t jcs/thormasterdev:latest -t jcs/thormasterdev:0.1 .
+

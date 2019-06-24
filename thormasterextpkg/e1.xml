@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with envgen -->
+<Environment>
+ <Hardware>
+  <ComputerType computerType="linuxmachine"
+                manufacturer="unknown"
+                name="linuxmachine"
+                nicSpeed="1000"
+                opSys="linux"/>
+  <Domain name="localdomain"/>
+  <Switch name="Switch"/>
+  <Computer computerType="linuxmachine"
+            domain="localdomain"
+            name="hpccnode1"
+            netAddress="192.168.10.2"/>

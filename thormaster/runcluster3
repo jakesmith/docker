@@ -1,0 +1,77 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+  echo Usage: runluster CLUSTERNAME NUMSLAVES
+  exit 1
+fi
+
+cluster=$1
+numslaves=$2
+
+cp e1.xml ../sharedfolder/environment.xml
+
+# <Computer>'s
+for slave in $(seq 1 ${numslaves}); do
+  let "hpccnode = 1 + ${slave}"
+  let "ipnum = 2 + ${slave}"
+  cat >> ../sharedfolder/environment.xml <<_EOF
+  <Computer computerType="linuxmachine"
+            domain="localdomain"
+            name="hpccnode${hpccnode}"
+            netAddress="192.168.10.${ipnum}"/>
+_EOF
+done
+
+cat e2.xml >> ../sharedfolder/environment.xml
+
+# <FTSlaveProcess>'s
+for slave in $(seq 1 ${numslaves}); do
+  let "hpccnode = 1 + ${slave}"
+  let "ipnum = 2 + ${slave}"
+  cat >> ../sharedfolder/environment.xml <<_EOF
+   <Instance computer="hpccnode${hpccnode}"
+             directory="/var/lib/HPCCSystems/myftslave"
+             name="s${hpccnode}"
+             netAddress="192.168.10.${ipnum}"
+             program="/opt/HPCCSystems/bin/ftslave"/>
+_EOF
+done
+
+cat e3.xml >> ../sharedfolder/environment.xml
+
+# <DafilesrvProcess>'s
+for slave in $(seq 1 ${numslaves}); do
+  let "hpccnode = 1 + ${slave}"
+  let "ipnum = 2 + ${slave}"
+  cat >> ../sharedfolder/environment.xml <<_EOF
+   <Instance computer="hpccnode${hpccnode}"
+             directory="/var/lib/HPCCSystems/mydafilesrv"
+             name="s${hpccnode}"
+             netAddress="192.168.10.${ipnum}"
+             parallelRequestLimit="20"
+             throttleCPULimit="75"
+             throttleDelayMs="5000"/>
+_EOF
+done
+
+cat e4.xml >> ../sharedfolder/environment.xml
+
+# <ThorSlaveProcess>'s
+for slave in $(seq 1 ${numslaves}); do
+  let "hpccnode = 1 + ${slave}"
+  cat >> ../sharedfolder/environment.xml <<_EOF
+   <ThorSlaveProcess computer="hpccnode${hpccnode}" name="s${slave}"/>
+_EOF
+done
+
+cat e5.xml >> ../sharedfolder/environment.xml
+
+masterimagename=${cluster}_thormaster
+echo "RUNNING: ./runhpcc "${cluster}_thormaster" 192.168.10.2 ${masterimagename}"
+./runhpcc "${cluster}_thormaster" 192.168.10.2 ${masterimagename}
+for slave in $(seq 1 ${numslaves}); do
+  let "ipnum = 2 + ${slave}"
+  imagename=${cluster}_thorslave${slave}
+  echo "RUNNING: ./runhpcc "${cluster}_thorslave${slave}" 192.168.10.${ipnum} ${imagename}"
+  ./runhpcc "${cluster}_thorslave${slave}" 192.168.10.${ipnum} ${slavenum} ${imagename}
+done
