@@ -1,0 +1,143 @@
+<Files>
+ <Scope name=".">
+  <File directory="/var/lib/HPCCSystems/hpcc-data/thor"
+        group="mythor"
+        modified="2019-06-24T14:36:39"
+        name="distds"
+        numclusters="1"
+        numparts="3"
+        partmask="distds._$P$_of_3">
+   <Cluster defaultBaseDir="/var/lib/HPCCSystems/hpcc-data/thor"
+            defaultReplicateDir="/var/lib/HPCCSystems/hpcc-mirror/thor"
+            mapFlags="48"
+            name="mythor"/>
+   <Attr accessed="2019-06-24T15:08:49"
+         checkSum="820870497"
+         formatCrc="1179043565"
+         job="keyedjoin"
+         kind="flat"
+         owner=""
+         recordCount="10000"
+         recordSize="56"
+         size="560000"
+         workunit="W20190624-143637">
+    <ECL>{ unsigned6 id, string50 str };&#10;</ECL>
+    <_rtlType xsi:type="SOAP-ENC:base64">
+     UT7VQTpJpKUKIQAAAAEBAAAGBAAAADINAEAAOAJpZAAAAQEAAHN0cgABBAAAAA==    </_rtlType>
+   </Attr>
+   <ClusterLock/>
+   <Parts xsi:type="SOAP-ENC:base64">
+    I1jXAgAAAAAA4wcGGA4kJwAAAAADFB+VcmVjb3JkQ291bnQAMzMyNQAAI2DcAgAAAAAA4wcG
+GA4kJwAAAACByN0qcmVjb3JkQ291bnQAMzM0OAAAI8jXAgAAAAAA4wcGGA4kJwAAAAAcXtBw
+cmVjb3JkQ291bnQAMzMyNwAA   </Parts>
+   <OrigName>.::distds</OrigName>
+  </File>
+  <File directory="/var/lib/HPCCSystems/hpcc-data/thor"
+        group="mythor"
+        modified="2019-06-24T14:36:39"
+        name="idx.idx"
+        numclusters="1"
+        numparts="4"
+        partmask="idx.idx._$P$_of_4">
+   <Cluster defaultBaseDir="/var/lib/HPCCSystems/hpcc-data/thor"
+            defaultReplicateDir="/var/lib/HPCCSystems/hpcc-mirror/thor"
+            mapFlags="48"
+            name="mythor"/>
+   <Attr accessed="2019-06-24T15:08:49"
+         checkSum="3446486468"
+         duplicateKeyCount="0"
+         formatCrc="71897532"
+         job="keyedjoin"
+         kind="key"
+         owner=""
+         recordCount="10000"
+         size="303104"
+         workunit="W20190624-143637">
+    <ECL>{ unsigned6 id =&gt; string50 str, unsigned8 filepos };&#10;</ECL>
+    <_record_layout xsi:type="SOAP-ENC:base64">
+     AFAAAAABQAAAAAMAAAADAgAAAGlkAQYAAAAAAAADAwAAAHN0cgQyAAAAAWFzY2lpAAFhc2Np
+aQAAAAAAAAMHAAAAZmlsZXBvcwEIAAAAAAAAAQAAAA==    </_record_layout>
+    <Bloom bloomFieldMask="1" bloomLimit="1000000" bloomProbability="0.010000"/>
+    <_rtlType xsi:type="SOAP-ENC:base64">
+     Ua2q/k91qdZgMwAAAAoBAAAGBAAAADIdAQAACA0AQABAA2lkAAAKAQAAc3RyAAEEAAEAZmls
+ZXBvcwACHQEBAA==    </_rtlType>
+   </Attr>
+   <ClusterLock/>
+   <Parts xsi:type="SOAP-ENC:base64">
+    IwBgAQAAAAAA4wcGGA4kJwAAAABjXxMgcmVjb3JkQ291bnQAMzMyOQAAIwBgAQAAAAAA4wcG
+GA4kJwAAAADo93lRcmVjb3JkQ291bnQAMzM1NAAAIwBgAQAAAAAA4wcGGA4kJwAAAABhbBmM
+cmVjb3JkQ291bnQAMzMxNwAAIwCAAAAAAAAA4wcGGA4kJwAAAADRDuHPa2luZAB0b3BMZXZl
+bEtleQAA   </Parts>
+   <OrigName>.::idx.idx</OrigName>
+  </File>
+  <File directory="/var/lib/HPCCSystems/hpcc-data/thor"
+        group="mythor"
+        modified="2019-06-25T12:57:05"
+        name="out"
+        numclusters="1"
+        numparts="3"
+        partmask="out._$P$_of_3">
+   <Cluster defaultBaseDir="/var/lib/HPCCSystems/hpcc-data/thor"
+            defaultReplicateDir="/var/lib/HPCCSystems/hpcc-mirror/thor"
+            mapFlags="48"
+            name="mythor"/>
+   <Attr accessed="2019-06-25T12:57:05"
+         checkSum="4046647929"
+         formatCrc="2072109005"
+         job="readsort"
+         kind="flat"
+         owner=""
+         recordCount="1600"
+         recordSize="14004"
+         size="22406400"
+         workunit="W20190625-125703">
+    <ECL>{ string10000 f1, unsigned4 f2, string4000 f3 };&#10;</ECL>
+    <_rtlType xsi:type="SOAP-ENC:base64">
+     Uf/9bu2k1jAEMAAAAAQAAACQTgEBAAAEBAAAAKAfDQBAALRtA2YxAAAEAAAAZjIAAQEBAABm
+MwACBAAAAA==    </_rtlType>
+   </Attr>
+   <ClusterLock/>
+   <Parts xsi:type="SOAP-ENC:base64">
+    I0j2cgAAAAAA4wcGGQw5BQAAAAAIRvAZcmVjb3JkQ291bnQANTM4AAAjJC9wAAAAAADjBwYZ
+DDkFAAAAANGGQLxyZWNvcmRDb3VudAA1MjUAACOUv3IAAAAAAOMHBhkMOQUAAAAAX819q3Jl
+Y29yZENvdW50ADUzNwAA   </Parts>
+   <OrigName>.::out</OrigName>
+  </File>
+ </Scope>
+ <Scope name="dfsstream">
+  <File directory="/var/lib/HPCCSystems/hpcc-data/thor/dfsstream"
+        group="mythor"
+        modified="2019-06-25T16:52:43"
+        name="testout_"
+        numclusters="1"
+        numparts="3"
+        partmask="testout_._$P$_of_3">
+   <Cluster defaultBaseDir="/var/lib/HPCCSystems/hpcc-data/thor"
+            defaultReplicateDir="/var/lib/HPCCSystems/hpcc-mirror/thor"
+            mapFlags="48"
+            name="mythor"/>
+   <Attr accessed="2019-06-25T16:52:43"
+         checkSum="4046647929"
+         formatCrc="2072109005"
+         job="sort"
+         kind="flat"
+         owner=""
+         recordCount="1600"
+         recordSize="14004"
+         size="22406400"
+         workunit="W20190625-165242">
+    <ECL>{ string10000 f1, unsigned4 f2, string4000 f3 };&#10;</ECL>
+    <_rtlType xsi:type="SOAP-ENC:base64">
+     Uf/9bu2k1jAEMAAAAAQAAACQTgEBAAAEBAAAAKAfDQBAALRtA2YxAAAEAAAAZjIAAQEBAABm
+MwACBAAAAA==    </_rtlType>
+   </Attr>
+   <ClusterLock/>
+   <Parts xsi:type="SOAP-ENC:base64">
+    I0j2cgAAAAAA4wcGGRA0KwAAAAAIRvAZcmVjb3JkQ291bnQANTM4AAAjJC9wAAAAAADjBwYZ
+EDQrAAAAANGGQLxyZWNvcmRDb3VudAA1MjUAACOUv3IAAAAAAOMHBhkQNCsAAAAAX819q3Jl
+Y29yZENvdW50ADUzNwAA   </Parts>
+   <OrigName>dfsstream::testout_</OrigName>
+  </File>
+ </Scope>
+ <Relationships/>
+</Files>

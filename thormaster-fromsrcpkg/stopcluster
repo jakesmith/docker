@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+  echo Usage: stopcluster CLUSTERNAME
+  exit 1
+fi
+
+cluster=$1
+
+for name in $(docker ps --format '{{.Names}}' | egrep "^${cluster}_thormaster"); do
+  echo "Stopping container ${name}"
+  docker stop "${name}" &
+done
+for name in $(docker ps --format '{{.Names}}' | egrep "^${cluster}_thorslave"); do
+  echo "Stopping container ${name}"
+  docker stop ${name} &
+done
+
+wait
+
+

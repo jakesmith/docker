@@ -1,0 +1,105 @@
+FROM rastasheep/ubuntu-sshd:16.04
+
+RUN apt-get update && apt-get -y install tzdata && \
+  ln -sf /usr/share/zoneinfo/Europe/Dublin /etc/localtime && \
+  apt-get install -y \
+  apt-utils \
+  automake \
+  autotools-dev \
+  binutils-dev \
+  bison \
+  build-essential \
+  default-jdk \
+  libmysqlclient-dev \
+  flex \
+  libapr1-dev \
+  libaprutil1-dev \
+  libarchive-dev \
+  libatlas-base-dev \
+  libblas-dev \
+  libboost-regex-dev \
+  libcppunit-dev \
+  libcurl4-openssl-dev \
+  libevent-dev \
+  libhiredis-dev \
+  libiberty-dev \
+  libicu-dev \
+  libldap2-dev \
+  libmemcached-dev \
+  libnuma-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  libtbb-dev \
+  libtool \
+  libv8-dev \
+  libxalan-c-dev \
+  libxslt1-dev \
+  nodejs \
+  pkg-config \
+  python-dev \
+  python3-dev \
+  r-base-dev \
+  r-cran-inline \
+  r-cran-rcpp \
+  r-cran-rinside \
+  rsync \
+  psmisc \
+  libpopt0 \
+  curl \
+  zlib1g-dev \
+  bash-completion \
+  expect \
+  git \
+  vim \
+  nano \
+  valgrind \
+  sudo \
+  gdb \
+  npm
+
+## NB: Should be at top, but avoiding docker rebuilding/re-fretching everything for now
+RUN apt-get -y install inetutils-ping
+
+USER root
+WORKDIR /
+
+# get/install cmake
+
+RUN wget -qO- "https://cmake.org/files/v3.13/cmake-3.13.4-Linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local
+RUN dpkg-reconfigure openssh-server
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+RUN sudo apt-get install -y nodejs
+
+
+# add user/home dir
+RUN groupadd jsmith
+RUN useradd -d /home/jsmith -ms /bin/bash -g jsmith -G sudo -p $(perl -e'print crypt("jsmith", "aa")') jsmith
+# Add local files to image
+ADD --chown=jsmith:jsmith .gitconfig /home/jsmith/
+ADD --chown=jsmith:jsmith cmake-install /home/jsmith/cmake-install
+ADD --chown=jsmith:jsmith bin /home/jsmith/bin
+#ADD --chown=jsmith:jsmith id_rsa.pub /home/jsmith/jsmith.pub
+#RUN mkdir -p /home/jsmith/.ssh && cat /home/jsmith/jsmith.pub >> /home/jsmith/.ssh/authorized_keys && chmod 640 /home/jsmith/.ssh/authorized_keys && chmod 700 /home/jsmith/.ssh && chown -R jsmith:jsmith /home/jsmith/.ssh
+ADD --chown=jsmith:jsmith ssh /home/jsmith/.ssh
+
+EXPOSE 22 8010 8002 8015 9876
+
+USER jsmith
+WORKDIR /home/jsmith
+
+# HPCC specific stuff
+RUN git clone https://github.com/hpcc-systems/HPCC-Platform.git
+
+WORKDIR /home/jsmith/HPCC-Platform
+
+RUN git submodule update --init --recursive
+
+RUN git remote add origin git@github.com:jakesmith/HPCC-Platform.git
+
+# RUN ssh-keygen -t rsa -b 4096 -C "jake.smith@lexisnexisrisk.com" -N "" -f /home/jsmith/.ssh/id_rsa
+
+# I don't really understand this, but without it the container exists just after it starts
+USER root
+WORKDIR /
+
+

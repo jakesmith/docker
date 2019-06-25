@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+ echo Usage: build BUILDCTX
+ exit 1
+fi
+
+buildCtx=$(realpath $1)
+
+last_docker_id=$(docker inspect --format {{.Id}} jcs/hpccbuildsrc)
+docker build -t jcs/hpccbuildsrc .
+docker_id_after_build=$(docker inspect --format {{.Id}} jcs/hpccbuildsrc)
+if [ "$docker_id_after_build" != "$last_docker_id" ]; then
+   echo "image changed" 
+else
+   echo "image didn't change" 
+fi
+
+# remove if exists (implies previous failure)
+docker rm hpccpackage-container
+
+docker run --name 'hpccpackage-container' -v ${buildCtx}:/home/build/buildctx -ti jcs/hpccbuildsrc:latest
+docker commit hpccpackage-container jcs/hpccbuildsrcwithpackage

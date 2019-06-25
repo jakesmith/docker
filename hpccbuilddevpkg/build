@@ -6,6 +6,6 @@ if [ $# -lt 1 ]; then
 fi
 
 echo rsync -avzh $ –cvs-exclude '.git' $1 .
-rsync -avzh –cvs-exclude $1 .
+rsync -avz --exclude .git/ --exclude .gitignore --exclude .gitmodules $1/ HPCC-Platform/
 
 docker build -t jcs/hpccbuilddevpkg:latest .

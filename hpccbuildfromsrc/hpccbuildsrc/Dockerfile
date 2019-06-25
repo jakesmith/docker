@@ -70,12 +70,6 @@ RUN sudo apt-get install -y nodejs
 
 RUN useradd -ms /bin/bash -G sudo build && echo "build:build" | chpasswd
 
-USER build
-WORKDIR /home/build
-
-# HPCC specific stuff
-RUN echo "Copying /home/jsmith/dev/git/HPCC-Platform"
-COPY --chown=build:build HPCC-Platform /home/build/HPCC-Platform
-
-RUN mkdir cmake && cd cmake && cmake -D ECLWATCH_BUILD_STRATEGY="IF_MISSING" -D USE_CPPUNIT=On -D CMAKE_BUILD_TYPE=Debug -D USE_LIBMEMCACHED=Off ../HPCC-Platform
-RUN cd cmake && make -j 24 package
+COPY buildscript.sh /usr/local/bin/
+RUN ln -s usr/local/bin/buildscript.sh / # backwards compat
+ENTRYPOINT ["/bin/bash", "-c", "buildscript.sh \"$@\"", "--"]

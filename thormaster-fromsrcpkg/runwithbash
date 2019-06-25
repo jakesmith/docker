@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+ echo Usage: run NAME IP
+ exit 1
+fi
+
+name=$1
+ip=$2
+
+mythornet=$(docker network ls | awk '{print $2}' | grep '^mythornet')
+if [ -z "$mythornet" ]; then
+  docker network create --subnet=192.168.10.0/24 mythornet
+fi
+
+sharedFolder=$(realpath ../sharedfolder)
+
+echo docker run --net mythornet --ip ${ip} -v ${sharedFolder}:/data -ti jcs/hpccbuildsrcwithpackage:latest ${name} /bin/bash
+docker run --net mythornet --ip ${ip} -v ${sharedFolder}:/data -ti jcs/hpccbuildsrcwithpackage:latest ${name} /bin/bash
+
