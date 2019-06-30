@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -lt 3 ]; then
-  echo Usage: createenv ENVFILEOUT THORNAME NUMSLAVES
+  echo Usage: createenv ENVFILEOUT THORNAME NUMSLAVES NUMSPARES
   exit 1
 fi
 
@@ -18,10 +18,17 @@ nextip()
 envFileOut=$1
 thorName=$2
 numSlaves=$3
-scriptdir=$(realpath $(dirname $0))
+numSpares=$4
+if [ -z "$numSpares" ]; then
+  numSpares=0
+fi
+
+numComputers=$((numSlaves + numSpares))
+
+scriptDir=$(realpath $(dirname $0))
 
 middlewareHostname="${thorName}_thormaster"
-sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptdir}/e1.xml > ${envFileOut}
+sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptDir}/e1.xml > ${envFileOut}
 
 
 cat >> ${envFileOut} <<_EOF
@@ -32,7 +39,7 @@ cat >> ${envFileOut} <<_EOF
 _EOF
 
 # <Computer>'s
-for slave in $(seq 1 ${numSlaves}); do
+for slave in $(seq 1 ${numComputers}); do
   name="${thorName}_thorslave${slave}"
   cat >> ${envFileOut} <<_EOF
   <Computer computerType="linuxmachine"
@@ -42,10 +49,10 @@ for slave in $(seq 1 ${numSlaves}); do
 _EOF
 done
 
-sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptdir}/e2.xml >> ${envFileOut}
+sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptDir}/e2.xml >> ${envFileOut}
 
 # <FTSlaveProcess>'s
-for slave in $(seq 1 ${numSlaves}); do
+for slave in $(seq 1 ${numComputers}); do
   name="${thorName}_thorslave${slave}"
   cat >> ${envFileOut} <<_EOF
    <Instance computer="${name}"
@@ -56,10 +63,10 @@ for slave in $(seq 1 ${numSlaves}); do
 _EOF
 done
 
-sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptdir}/e3.xml >> ${envFileOut}
+sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptDir}/e3.xml >> ${envFileOut}
 
 # <DafilesrvProcess>'s
-for slave in $(seq 1 ${numSlaves}); do
+for slave in $(seq 1 ${numComputers}); do
   name="${thorName}_thorslave${slave}"
   cat >> ${envFileOut} <<_EOF
    <Instance computer="${name}"
@@ -72,7 +79,7 @@ for slave in $(seq 1 ${numSlaves}); do
 _EOF
 done
 
-sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptdir}/e4.xml >> ${envFileOut}
+sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptDir}/e4.xml >> ${envFileOut}
 
 # <ThorSlaveProcess>'s
 for slave in $(seq 1 ${numSlaves}); do
@@ -82,5 +89,13 @@ for slave in $(seq 1 ${numSlaves}); do
 _EOF
 done
 
-sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptdir}/e5.xml >> ${envFileOut}
+# <ThorSpareProcess>'s
+for slave in $(seq 1 ${numSpares}); do
+  name="${thorName}_thorslave$((numSlaves+slave))"
+  cat >> ${envFileOut} <<_EOF
+   <ThorSpareProcess computer="${name}" name="${name}"/>
+_EOF
+done
+
+sed -e "s/middlewareComputerName/${middlewareHostname}/g" -e "s/middlewareHostName/${middlewareHostname}/g" ${scriptDir}/e5.xml >> ${envFileOut}
 

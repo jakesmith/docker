@@ -11,16 +11,28 @@
   <Switch name="Switch"/>
   <Computer computerType="linuxmachine"
             domain="localdomain"
-            name="hpccnode1"
-            netAddress="192.168.10.2"/>
+            name="mythor_thormaster"
+            netAddress="mythor_thormaster"/>
   <Computer computerType="linuxmachine"
             domain="localdomain"
-            name="hpccnode2"
-            netAddress="192.168.10.3"/>
+            name="mythor_thorslave1"
+            netAddress="mythor_thorslave1"/>
   <Computer computerType="linuxmachine"
             domain="localdomain"
-            name="hpccnode3"
-            netAddress="192.168.10.4"/>
+            name="mythor_thorslave2"
+            netAddress="mythor_thorslave2"/>
+  <Computer computerType="linuxmachine"
+            domain="localdomain"
+            name="mythor_thorslave3"
+            netAddress="mythor_thorslave3"/>
+  <Computer computerType="linuxmachine"
+            domain="localdomain"
+            name="mythor_thorslave4"
+            netAddress="mythor_thorslave4"/>
+  <Computer computerType="linuxmachine"
+            domain="localdomain"
+            name="mythor_thorslave5"
+            netAddress="mythor_thorslave5"/>
   <Switch name="Switch"/>
  </Hardware>
  <Software>
@@ -31,7 +43,7 @@
             name="mydropzone"
             ECLWatchVisible="true"
             umask="022">
-            <ServerList name="ServerList" server="192.168.10.2"/>
+            <ServerList name="ServerList" server="mythor_thormaster"/>
   </DropZone>
   <RoxieCluster allFilesDynamic="true"
                 blindLogging="false"
@@ -184,7 +196,7 @@
                      numThreads="30"
                      port="0"
                      requestArrayThreads="5"/>
-   <RoxieServerProcess computer="hpccnode1" name="hpccnode1" netAddress="192.168.10.2"/>
+   <RoxieServerProcess computer="mythor_thormaster" name="mythor_thormaster" netAddress="mythor_thormaster"/>
   </RoxieCluster>
   <Topology build="_" buildSet="topology" name="topology">
    <Cluster name="hthor" prefix="hthor" alias="">
@@ -215,10 +227,10 @@
                      environment="/etc/HPCCSystems/environment.xml"
                      name="mydali"
                      recoverFromIncErrors="true">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/mydali"
              name="s1"
-             netAddress="192.168.10.2"
+             netAddress="mythor_thormaster"
              port="7070"/>
   </DaliServerProcess>
   <DfuServerProcess build="_"
@@ -230,10 +242,10 @@
                     name="mydfuserver"
                     queue="dfuserver_queue"
                     transferBufferSize="65536">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/mydfuserver"
              name="s1"
-             netAddress="192.168.10.2"/>
+             netAddress="mythor_thormaster"/>
    <SSH SSHidentityfile="$HOME/.ssh/id_rsa"
         SSHpassword=""
         SSHretries="3"
@@ -250,10 +262,10 @@
                       maxEclccProcesses="4"
                       name="myeclccserver"
                       traceLevel="1">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/myeclccserver"
              name="s1"
-             netAddress="192.168.10.2"/>
+             netAddress="mythor_thormaster"/>
    <Option name="maxCompileThreads" value="2"/>
    <Option name="passDFSToEclcc" value="1"/>
   </EclCCServerProcess>
@@ -277,11 +289,11 @@
               name="myesp"
               perfReportDelay="60"
               portalurl="http://hpccsystems.com/download">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/myesp"
              FQDN=""
              name="s1"
-             netAddress="192.168.10.2"/>
+             netAddress="mythor_thormaster"/>
    <HTTPS acceptSelfSigned="true"
           CA_Certificates_Path="ca.pem"
           certificateFileName="/home/hpcc/certificate/certificate.pem"
@@ -552,30 +564,45 @@
                    thorConnectTimeout="600"
                    traceLevel="0"
                    wuQueueName="myeclagent_queue">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/myeclagent"
              name="s1"
-             netAddress="192.168.10.2"/>
+             netAddress="mythor_thormaster"/>
   </EclAgentProcess>
   <FTSlaveProcess build="_"
                   buildSet="ftslave"
                   description="FTSlave process"
                   name="myftslave"
                   version="1">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/myftslave"
              name="s1"
-             netAddress="192.168.10.2"
+             netAddress="mythor_thormaster"
              program="/opt/HPCCSystems/bin/ftslave"/>
-   <Instance computer="hpccnode2"
+   <Instance computer="mythor_thorslave1"
              directory="/var/lib/HPCCSystems/myftslave"
-             name="s2"
-             netAddress="192.168.10.3"
+             name="mythor_thorslave1"
+             netAddress="mythor_thorslave1"
              program="/opt/HPCCSystems/bin/ftslave"/>
-   <Instance computer="hpccnode3"
+   <Instance computer="mythor_thorslave2"
              directory="/var/lib/HPCCSystems/myftslave"
-             name="s3"
-             netAddress="192.168.10.4"
+             name="mythor_thorslave2"
+             netAddress="mythor_thorslave2"
+             program="/opt/HPCCSystems/bin/ftslave"/>
+   <Instance computer="mythor_thorslave3"
+             directory="/var/lib/HPCCSystems/myftslave"
+             name="mythor_thorslave3"
+             netAddress="mythor_thorslave3"
+             program="/opt/HPCCSystems/bin/ftslave"/>
+   <Instance computer="mythor_thorslave4"
+             directory="/var/lib/HPCCSystems/myftslave"
+             name="mythor_thorslave4"
+             netAddress="mythor_thorslave4"
+             program="/opt/HPCCSystems/bin/ftslave"/>
+   <Instance computer="mythor_thorslave5"
+             directory="/var/lib/HPCCSystems/myftslave"
+             name="mythor_thorslave5"
+             netAddress="mythor_thorslave5"
              program="/opt/HPCCSystems/bin/ftslave"/>
   </FTSlaveProcess>
   <SashaServerProcess autoRestartInterval="0"
@@ -630,10 +657,10 @@
                       xrefList="*"
                       xrefMaxMemory="4096"
                       xrefMaxScanThreads="500">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/mysasha"
              name="s1"
-             netAddress="192.168.10.2"
+             netAddress="mythor_thormaster"
              port="8877"/>
   </SashaServerProcess>
   <EspService ActivityInfoCacheSeconds="10"
@@ -863,24 +890,45 @@
                     throttleCPULimit="75"
                     throttleDelayMs="5000"
                     version="1">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/mydafilesrv"
              name="s1"
-             netAddress="192.168.10.2"
+             netAddress="mythor_thormaster"
              parallelRequestLimit="20"
              throttleCPULimit="75"
              throttleDelayMs="5000"/>
-   <Instance computer="hpccnode2"
+   <Instance computer="mythor_thorslave1"
              directory="/var/lib/HPCCSystems/mydafilesrv"
-             name="s2"
-             netAddress="192.168.10.3"
+             name="mythor_thorslave1"
+             netAddress="mythor_thorslave1"
              parallelRequestLimit="20"
              throttleCPULimit="75"
              throttleDelayMs="5000"/>
-   <Instance computer="hpccnode3"
+   <Instance computer="mythor_thorslave2"
              directory="/var/lib/HPCCSystems/mydafilesrv"
-             name="s3"
-             netAddress="192.168.10.4"
+             name="mythor_thorslave2"
+             netAddress="mythor_thorslave2"
+             parallelRequestLimit="20"
+             throttleCPULimit="75"
+             throttleDelayMs="5000"/>
+   <Instance computer="mythor_thorslave3"
+             directory="/var/lib/HPCCSystems/mydafilesrv"
+             name="mythor_thorslave3"
+             netAddress="mythor_thorslave3"
+             parallelRequestLimit="20"
+             throttleCPULimit="75"
+             throttleDelayMs="5000"/>
+   <Instance computer="mythor_thorslave4"
+             directory="/var/lib/HPCCSystems/mydafilesrv"
+             name="mythor_thorslave4"
+             netAddress="mythor_thorslave4"
+             parallelRequestLimit="20"
+             throttleCPULimit="75"
+             throttleDelayMs="5000"/>
+   <Instance computer="mythor_thorslave5"
+             directory="/var/lib/HPCCSystems/mydafilesrv"
+             name="mythor_thorslave5"
+             netAddress="mythor_thorslave5"
              parallelRequestLimit="20"
              throttleCPULimit="75"
              throttleDelayMs="5000"/>
@@ -891,7 +939,7 @@
                buildSet="thor"
                channelsPerSlave="1"
                compressInternalSpills="true"
-               computer="hpccnode1"
+               computer="mythor_thormaster"
                daliServers="mydali"
                description="Thor process"
                fileCacheLimit="1800"
@@ -912,9 +960,12 @@
                watchdogEnabled="true"
                watchdogProgressEnabled="true">
    <SwapNode AutoSwapNode="false"/>
-   <ThorMasterProcess computer="hpccnode1" name="m1"/>
-   <ThorSlaveProcess computer="hpccnode2" name="s1"/>
-   <ThorSlaveProcess computer="hpccnode3" name="s2"/>
+   <ThorMasterProcess computer="mythor_thormaster" name="m1"/>
+   <ThorSlaveProcess computer="mythor_thorslave1" name="mythor_thorslave1"/>
+   <ThorSlaveProcess computer="mythor_thorslave2" name="mythor_thorslave2"/>
+   <ThorSlaveProcess computer="mythor_thorslave3" name="mythor_thorslave3"/>
+   <ThorSpareProcess computer="mythor_thorslave4" name="mythor_thorslave4"/>
+   <ThorSpareProcess computer="mythor_thorslave5" name="mythor_thorslave5"/>
    <Debug/>
    <SSH SSHidentityfile="$HOME/.ssh/id_rsa"
         SSHpassword=""
@@ -927,10 +978,10 @@
                        daliServers="mydali"
                        description="EclScheduler process"
                        name="myeclscheduler">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/myeclscheduler"
              name="s1"
-             netAddress="192.168.10.2"/>
+             netAddress="mythor_thormaster"/>
   </EclSchedulerProcess>
   <!-- Built with -DSPARK=OFF 
   <SparkThorProcess build="_"
@@ -945,10 +996,10 @@
                     SPARK_WORKER_CORES="1"
                     SPARK_WORKER_MEMORY="1G"
                     SPARK_WORKER_PORT="7071">
-   <Instance computer="hpccnode1"
+   <Instance computer="mythor_thormaster"
              directory="/var/lib/HPCCSystems/mysparkthor"
              name="s1"
-             netAddress="192.168.10.2"/>
+             netAddress="mythor_thormaster"/>
    </SparkThorProcess>
    -->
  </Software>
