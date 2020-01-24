@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# -lt 3 ]; then
+ echo Usage: run NAME NETWORK STORAGEDIR IP
+ exit 1
+fi
+
+name=$1
+network=$2
+storageDir=$3
+ip=$4
+
+clusterFolder=$(realpath ${storageDir})
+resourceFolder=$(realpath ../shared)
+
+echo docker run -d --rm --net ${network} --ip ${ip} --name ${name} -v ${clusterFolder}:/data -ti jcs/thormaster-fromsrcpkg:latest ${name}
+docker run -d --rm --net ${network} --add-host jakedev:10.173.2.1 --ip ${ip} --privileged --name ${name} -v ${resourceFolder}:/shared -v ${clusterFolder}:/data -ti jcs/thormaster-fromsrcpkg:latest ${name}
+

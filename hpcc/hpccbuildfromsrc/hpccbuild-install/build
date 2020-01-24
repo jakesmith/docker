@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+ echo Usage: build BUILDCTX
+ exit 1
+fi
+
+buildCtx=$(realpath $1)
+
+docker build -t jcs/hpccbuild-install .
+
+if [ -z "$(docker container inspect --format {{.Id}} hpccinstall-container 2>&1 >/dev/null)" ]; then
+ echo "deleting previous container"
+ docker rm hpccinstall-container
+fi
+
+docker run --name 'hpccinstall-container' -v ${buildCtx}:/home/build/buildctx -ti jcs/hpccbuild-install:latest
+docker commit hpccinstall-container jcs/hpccbuild-install

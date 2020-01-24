@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ $# -lt 3 ]; then
+ echo Usage: run NAME NETWORK STORAGEDIR IP
+ exit 1
+fi
+
+cluster=$1 # really to separate network subnets
+imagename=$2
+subnet=$3
+storageDir=$4
+# ip=$5
+
+storageDir="../../clusterFolders/${cluster}"
+mkdir -p ${storageDir}
+
+clusterFolder=$(realpath ${storageDir})
+resourceFolder=$(realpath ../shared)
+
+netname="${cluster}net_${subnet}"
+chknet=$(docker network ls | awk '{print $2}' | grep "^${netname}")
+
+if [ -z "$chknet" ]; then
+  echo "CREATING NETWORK: docker network create --subnet=${subnet}.0/24 ${netname}"
+  docker network create --subnet=${subnet}.0/24 ${netname}
+fi
+
+# Consider usnig --network container:${masterimagename}, ... READ UP ON IT
+
+#docker run -d --rm --net ${netname} --add-host jakedev:10.173.2.1 --ip ${ip} --privileged --name ${name} -v ${resourceFolder}:/shared -v ${clusterFolder}:/data -it jcs/thormaster-fromsrcpkg:latest ${name}
+
+docker run -d --rm --net ${netname} --privileged --name ${imagename} -v ${resourceFolder}:/shared -v ${clusterFolder}:/data -it jcs/${imagename}:latest
+

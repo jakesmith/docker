@@ -1,0 +1,46 @@
+#!/bin/bash
+
+if [ $# -lt 3 ]; then
+  echo Usage: startcluster CLUSTERNAME SUBNET NUMSLAVES NUMSPARES
+  e.g. ./startcluster mydockerthor 10.173.2 6 0
+  exit 1
+fi
+
+cluster=$1
+subnet=$2
+numSlaves=$3
+numSpares=$4
+if [ -z "$numSpares" ]; then
+  numSpares=0
+fi
+
+numComputers=$((numSlaves + numSpares))
+
+storageDir="../clusterFolders/${cluster}"
+mkdir -p ${storageDir}
+
+../scripts/createenv.sh ${storageDir}/environment.xml ${cluster} ${numSlaves} ${numSpares}
+
+netname="${cluster}net_${subnet}"
+chknet=$(docker network ls | awk '{print $2}' | grep "^${netname}")
+
+if [ -z "$chknet" ]; then
+  echo "CREATING NETWORK: docker network create --subnet=${subnet}.0/24 ${netname}"
+  docker network create --subnet=${subnet}.0/24 ${netname}
+fi
+
+masterimagename=${cluster}_thormaster
+
+# Consider usnig --network container:${masterimagename}, ... READ UP ON IT
+
+echo "RUNNING: ./runhpcc "${cluster}_thormaster" ${netname} ${storageDir} ${subnet}.2 ${masterimagename}"
+./runhpcc "${cluster}_thormaster" ${netname} ${storageDir} ${subnet}.2 ${masterimagename} &
+
+for slave in $(seq 1 ${numComputers}); do
+  imagename=${cluster}_thorslave${slave}
+  let "ipnum = 2 + ${slave}"
+  echo "RUNNING: ./runhpcc "${cluster}_thorslave${slave}" ${netname} ${storageDir} ${subnet}.${ipnum} ${imagename}"
+  ./runhpcc "${cluster}_thorslave${slave}" ${netname} ${storageDir} ${subnet}.${ipnum} ${imagename} &
+done
+
+wait

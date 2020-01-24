@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# THIS IS JUST AN EXAMPLE
+
+docker run -d --rm --net mycluster1net_10.1.0 --privileged --name hpcc-dafilesrv -h hpcc-dafilesrv -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-dafilesrv:latest
