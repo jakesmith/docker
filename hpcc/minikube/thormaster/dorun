@@ -15,5 +15,3 @@ fi
 
 
 docker run $DOCKEROPTS --rm --net mycluster1net_10.1.0 --privileged --name hpcc-thormaster -h hpcc-thormaster -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-thormaster:latest $@
-
-#docker run -d --rm --privileged --name hpcc-esp -h hpcc-esp -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-esp:latest

@@ -18,6 +18,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
      <xsl:attribute name="name">DALIHOST</xsl:attribute>
      <xsl:attribute name="netAddress">DALIHOST</xsl:attribute>
     </xsl:copy>
+    <xsl:copy>
+     <xsl:apply-templates select="@*[name()!='name' and name()!='netAddress']"/>
+     <xsl:attribute name="name">ESPHOST</xsl:attribute>
+     <xsl:attribute name="netAddress">ESPHOST</xsl:attribute>
+    </xsl:copy>
 </xsl:template>
 
 <xsl:template match="Environment/Software/DafilesrvProcess/Instance">
@@ -30,6 +35,12 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
      <xsl:attribute name="computer">DALIHOST</xsl:attribute>
      <xsl:attribute name="netAddress">DALIHOST</xsl:attribute>
     </xsl:copy>
+    <xsl:copy>
+     <xsl:apply-templates select="@*[name()!='name' and name()!='computer' and name()!='netAddress']"/>
+     <xsl:attribute name="name">s3</xsl:attribute>
+     <xsl:attribute name="computer">ESPHOST</xsl:attribute>
+     <xsl:attribute name="netAddress">ESPHOST</xsl:attribute>
+    </xsl:copy>
 </xsl:template>
 
 <xsl:template match="Environment/Software/DaliServerProcess/Instance">
@@ -37,6 +48,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
      <xsl:apply-templates select="@*[name()!='computer' and name()!='netAddress']"/>
      <xsl:attribute name="netAddress">DALIHOST</xsl:attribute>
      <xsl:attribute name="computer">DALIHOST</xsl:attribute>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="Environment/Software/EspProcess/Instance">
+    <xsl:copy>
+     <xsl:apply-templates select="@*[name()!='computer' and name()!='netAddress']"/>
+     <xsl:attribute name="netAddress">ESPHOST</xsl:attribute>
+     <xsl:attribute name="computer">ESPHOST</xsl:attribute>
     </xsl:copy>
 </xsl:template>
 
