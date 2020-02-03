@@ -2,4 +2,5 @@
 
 # THIS IS JUST AN EXAMPLE
 
-docker run $DOCKEROPTS --rm --net mycluster1net_10.1.0 --privileged -h hpccbuild-install --name hpccbuild-install -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpccbuild-install:latest $@
+#docker run $DOCKEROPTS --rm --net mycluster1net_10.1.0 --privileged -h hpccbuild-install --name hpccbuild-install -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpccbuild-install:latest $@
+docker run $DOCKEROPTS --rm --privileged -h hpccbuild-install --name hpccbuild-install -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpccbuild-install:latest $@

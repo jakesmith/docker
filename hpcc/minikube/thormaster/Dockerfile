@@ -1,16 +1,27 @@
-FROM jcs/hpccbuildsrcwithpackage:latest
+FROM jcs/hpcc-baseimage
 
-ENV DEBIAN_FRONTEND=noninteractive
+EXPOSE 20000
 
-RUN apt-get install -y --no-install-recommends \
-  vim \
-  iputils-ping \
-  net-tools
+ENV DALIHOST="hpcc-dali"
+ENV THORMASTERHOST="hpcc-thormaster"
 
-# JCSMORE - should have differnt images for slave/master, don't need port on master
-EXPOSE 22
-EXPOSE 8010 20000 20100 7100 7601
+COPY envtr.xslt scripts/xslt/
 
-COPY inithpcc.sh /usr/local/bin/
-RUN ln -s usr/local/bin/inithpcc.sh / # backwards compat
-ENTRYPOINT ["/bin/bash", "-c", "inithpcc.sh \"$@\"", "--"]
+RUN xmlstarlet tr /scripts/xslt/envtr.xslt $HPCC_INSTALL_BASE/etc/HPCCSystems/environment.xml \
+    | sed -e "s/DALIHOST/${DALIHOST}/g" > tmp.xml
+RUN mv tmp.xml $HPCC_INSTALL_BASE/etc/HPCCSystems/environment.xml
+
+ENV instname=mythor
+
+SHELL ["/bin/bash", "-c"]
+
+RUN source ${HPCC_INSTALL_BASE}/opt/HPCCSystems/sbin/hpcc_setenv
+
+RUN source ${HPCC_INSTALL_BASE}/opt/HPCCSystems/etc/init.d/hpcc_common
+
+#RUN source $HPCC_INSTALL_BASE/var/lib/HPCCSystems/${instname}/setvars
+
+COPY initthor.sh /scripts/init/
+#CMD ["/scripts/init/start-hpcccomp.sh", "thormaster_lcr", "mythor"]
+#CMD ["/scripts/init/start-hpcccomp.sh", "/bin/bash", "mythor"]
+CMD ["/scripts/init/initthor.sh", "mythor"]

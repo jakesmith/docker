@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# THIS IS JUST AN EXAMPLE
+
+export DOCKEROPTS=""
+./dorun $@
