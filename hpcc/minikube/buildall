@@ -1,0 +1,20 @@
+#!/bin/bash
+
+pushd .
+cd $(dirname $0)
+
+cd baseimage
+./build
+cd ../dali
+./build
+cd ../esp
+./build
+cd ../eclccserver
+./build
+cd ../eclagent
+./build
+cd ../thormaster
+./build
+cd ../thorslave
+./build
+popd

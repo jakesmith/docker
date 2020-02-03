@@ -1,0 +1,5 @@
+#!/bin/bash
+
+thormasterdkip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hpcc-thormaster)
+
+echo ${thormasterdkip}

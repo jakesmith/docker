@@ -1,0 +1,7 @@
+#!/bin/bash
+
+kubectl create deployment hpcc-dali --image=jcs/hpcc-dali:v1
+kubectl create deployment hpcc-esp --image=jcs/hpcc-esp:v1
+
+kubectl expose deployment hpcc-dali --port=7070 --name hpcc-dali
+kubectl expose deployment hpcc-esp --type=LoadBalancer --port=8010 --name hpcc-esp

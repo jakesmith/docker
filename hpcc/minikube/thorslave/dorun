@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# THIS IS JUST AN EXAMPLE
+
+cluster=mycluster1
+subnet=10.1.0
+
+netname="${cluster}net_${subnet}"
+chknet=$(docker network ls | awk '{print $2}' | grep "^${netname}")
+
+if [ -z "$chknet" ]; then
+ echo "CREATING NETWORK: docker network create --subnet=${subnet}.0/24 ${netname}"
+ docker network create --subnet=${subnet}.0/24 ${netname}
+fi
+
+
+thormasterdkip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hpcc-thormaster)
+
+docker run $DOCKEROPTS --rm --net mycluster1net_10.1.0 --privileged -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-thorslave:latest /scripts/init/start-hpcccomp.sh thorslave_lcr mythor "MASTER=${thormasterdkip}" $@
