@@ -1,6 +1,7 @@
 FROM jcs/hpcc-baseimage
 
 EXPOSE 20000
+EXPOSE 22
 
 ENV DALIHOST="hpcc-dali"
 ENV ESPHOST="hpcc-esp"
@@ -23,4 +24,4 @@ RUN source ${HPCC_INSTALL_BASE}/opt/HPCCSystems/etc/init.d/hpcc_common
 #RUN source $HPCC_INSTALL_BASE/var/lib/HPCCSystems/${instname}/setvars
 
 COPY initthor.sh /scripts/init/
-CMD ["/scripts/init/initthor.sh", "mythor"]
+ENTRYPOINT ["/scripts/init/initthor.sh"]

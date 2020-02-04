@@ -13,5 +13,5 @@ if [ -z "$chknet" ]; then
  docker network create --subnet=${subnet}.0/24 ${netname}
 fi
 
-
-docker run $DOCKEROPTS --rm --net mycluster1net_10.1.0 --privileged --name hpcc-thormaster -h hpcc-thormaster -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-thormaster:latest $@
+numSlaves=$1
+docker run $DOCKEROPTS --rm --net mycluster1net_10.1.0 --privileged --name hpcc-thormaster -h hpcc-thormaster -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-thormaster:latest numSlaves=${numSlaves} "${@:2}"
