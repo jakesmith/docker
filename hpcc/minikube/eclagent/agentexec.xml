@@ -1,0 +1,16 @@
+<agentexec allowedPipePrograms="*" daliServers="hpcc-dali" logDir="" name="myeclagent" pluginDirectory="/home/build/hpccinstall/opt/HPCCSystems/plugins" traceLevel="0" thorConnectTimeout="600">
+  <Directories name="HPCCSystems">
+   <Category dir="/home/build/hpccinstall/var/log/[NAME]/[INST]" name="log"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/[INST]" name="run"/>
+   <Category dir="/home/build/hpccinstall/etc/[NAME]/[INST]" name="conf"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/[INST]/temp" name="temp"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/hpcc-data/[COMPONENT]" name="data"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/hpcc-data2/[COMPONENT]" name="data2"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/hpcc-data3/[COMPONENT]" name="data3"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/hpcc-mirror/[COMPONENT]" name="mirror"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/queries/[INST]" name="query"/>
+   <Category dir="/home/build/hpccinstall/var/lock/[NAME]/[INST]" name="lock"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/hpcc-data4/[COMPONENT]" name="data4"/>
+   <Category dir="/home/build/hpccinstall/var/lib/[NAME]/keys" name="keys"/>
+  </Directories>
+</agentexec>

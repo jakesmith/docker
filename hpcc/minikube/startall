@@ -4,15 +4,19 @@ pushd .
 cd $(dirname $0)
 
 cd dali
-./rund
+./rund &
 cd ../esp
-./rund
+./rund &
 cd ../eclccserver
-./rund
+./rund &
 cd ../eclagent
-./rund
+./rund &
 cd ../thormaster
-./rund
+./rund 4
 cd ../thorslave
-./rund
+./rund &
+./rund &
+./rund &
+./rund &
 popd
+wait

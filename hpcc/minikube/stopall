@@ -1,9 +1,9 @@
 #!/bin/bash
 
-docker stop hpcc-thormaster
-#docker stop hpcc-thorslave
-docker stop $(docker ps -q --filter ancestor=jcs/hpcc-thorslave)
-docker stop hpcc-eclagent
-docker stop hpcc-eclccserver
-docker stop hpcc-esp
-docker stop hpcc-dali
+docker stop hpcc-thormaster &
+$(dirname $0)/stopslaves &
+docker stop hpcc-eclagent &
+docker stop hpcc-eclccserver &
+docker stop hpcc-esp &
+docker stop hpcc-dali &
+wait
