@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hpcc-dali
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: dali
+  template:
+    metadata:
+      labels:
+        app: dali
+    spec:
+      containers:
+        - name: dali
+          image: jcs/hpcc-dali:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 7070

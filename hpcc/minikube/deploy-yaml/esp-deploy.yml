@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hpcc-esp
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: esp
+  template:
+    metadata:
+      labels:
+        app: esp
+    spec:
+      containers:
+        - name: esp
+          image: jcs/hpcc-esp:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8010
