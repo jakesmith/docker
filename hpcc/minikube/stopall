@@ -1,7 +1,6 @@
 #!/bin/bash
 
-docker stop hpcc-thormaster &
-$(dirname $0)/stopslaves &
+$(dirname $0)/stopthor &
 docker stop hpcc-eclagent &
 docker stop hpcc-eclccserver &
 docker stop hpcc-esp &

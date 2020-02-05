@@ -1,6 +1,0 @@
-#!/bin/bash
-
-kubectl delete service/hpcc-dali
-kubectl delete service/hpcc-esp
-kubectl delete deployment.apps/hpcc-dali
-kubectl delete deployment.apps/hpcc-esp

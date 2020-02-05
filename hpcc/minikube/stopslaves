@@ -1,7 +1,0 @@
-#!/bin/bash
-
-for slaveid in $(docker ps -q --filter ancestor=jcs/hpcc-thorslave)
-do
-	echo Stopping slave id: $slaveid
-	docker stop $slaveid
-done
