@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: dali
-          image: jcs/hpcc-dali:latest
-          imagePullPolicy: Never
+          image: jcs/hpcc-dali
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7070

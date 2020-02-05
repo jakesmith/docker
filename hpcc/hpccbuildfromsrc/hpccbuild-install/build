@@ -6,6 +6,11 @@ if [ $# -lt 1 ]; then
 fi
 
 buildCtx=$(realpath $1)
+if [ ! -z "$MINIKUBEMOUNT" ]; then
+  buildCtx=$(echo ${buildCtx} | sed "s&${HOME}&${MINIKUBEMOUNT}&")
+fi
+
+echo buildCtx mount: $buildCtx
 
 docker build -t jcs/hpccbuild-install .
 
@@ -14,5 +19,6 @@ if [ -z "$(docker container inspect --format {{.Id}} hpccinstall-container 2>&1 
  docker rm hpccinstall-container
 fi
 
+echo docker run --name 'hpccinstall-container' -v ${buildCtx}:/home/build/buildctx -ti jcs/hpccbuild-install:latest
 docker run --name 'hpccinstall-container' -v ${buildCtx}:/home/build/buildctx -ti jcs/hpccbuild-install:latest
 docker commit hpccinstall-container jcs/hpccbuild-install
