@@ -1,0 +1,22 @@
+#!/bin/bash
+
+pushd .
+cd $(dirname $0)
+
+cd dali
+./rund &
+cd ../esp
+./rund &
+cd ../eclccserver
+./rund &
+cd ../eclagent
+./rund &
+cd ../thormaster
+./rund 4
+cd ../thorslave
+./rund &
+./rund &
+./rund &
+./rund &
+popd
+wait
