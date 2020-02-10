@@ -1,0 +1,8 @@
+#!/bin/bash
+
+helm lint dali
+helm lint esp
+helm lint eclccserver
+helm lint eclagent
+helm lint thor
+helm lint thorcluster

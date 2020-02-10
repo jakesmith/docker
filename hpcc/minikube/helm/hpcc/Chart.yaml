@@ -27,6 +27,6 @@ dependencies:
   - name: esp
     version: 0.1.0
     repository: https://jakesmith.github.io/Helm
-  - name: cluster
+  - name: thorcluster
     version: 0.1.0
     repository: https://jakesmith.github.io/Helm

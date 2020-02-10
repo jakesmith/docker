@@ -4,8 +4,8 @@
 
 image: jcs/hpcc-eclagent:latest
 replicas: 1
-dali: thedali
-clusters: thecluster
 
 global:
   imagePullPolicy: Never
+  dali: thedali
+  clusterNames: thecluster

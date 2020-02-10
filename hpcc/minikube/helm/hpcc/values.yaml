@@ -5,6 +5,4 @@
 global:
   imagePullPolicy: IfNotPresent
   dali: "{{ .Release.Name }}-dali"
-
-cluster:
-  name: "{{ .Release.Name }}"
+  clusterNames: "{{ .Release.Name }}"

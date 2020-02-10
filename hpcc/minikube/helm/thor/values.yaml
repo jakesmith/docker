@@ -3,8 +3,11 @@
 # Declare variables to be passed into your templates.
 
 slaves: 2
-dali: thedali
-clusters: thecluster
+
+global:
+  imagePullPolicy: Never
+  dali: thedali
+  clusterNames: thecluster
 
 master:
   image: jcs/hpcc-thormaster:latest
@@ -14,5 +17,3 @@ slave:
   image: jcs/hpcc-thorslave:latest
   port: 20100
 
-global:
-  imagePullPolicy: Never

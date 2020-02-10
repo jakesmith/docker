@@ -5,4 +5,11 @@ helm package esp
 helm package eclccserver
 helm package eclagent
 helm package thor
+helm package thorcluster
 mv *.tgz ~/git/Helm
+pushd .
+cd ~/git/Helm
+helm repo index .
+popd
+git commit -a -m 'wip'
+git push origin

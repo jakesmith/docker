@@ -4,8 +4,8 @@
 
 image: jcs/hpcc-esp:latest
 replicas: 1
-dali: thedali
 port: 8010
 
 global:
   imagePullPolicy: Never
+  dali: thedali

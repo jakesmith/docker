@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-thormaster
-          args: ["numSlaves={{ .Values.slaves }}", "DALISERVERS={{ tpl .Values.dali . }}", "clusters={{ tpl .Values.clusters . }}"]
+          args: ["numSlaves={{ .Values.slaves }}", "DALISERVERS={{ tpl .Values.global.dali . }}", "clusters={{ tpl .Values.global.clusterNames . }}"]
           image: {{ .Values.master.image }}
           imagePullPolicy: {{ .Values.global.imagePullPolicy }}
           ports:

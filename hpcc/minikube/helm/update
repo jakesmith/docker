@@ -1,0 +1,4 @@
+#!/bin/bash
+
+helm dependency update thorcluster
+helm dependency update hpcc

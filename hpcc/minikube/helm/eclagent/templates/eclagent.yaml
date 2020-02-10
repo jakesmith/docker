@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-eclagent
-          args: ["--daliServers {{ tpl .Values.dali . }}", "--clusters {{ tpl .Values.clusters . }}"]
+          args: ["--daliServers {{ tpl .Values.global.dali . }}", "--clusters {{ tpl .Values.global.clusterNames . }}"]
           image: {{ .Values.image }}
           imagePullPolicy: {{ .Values.global.imagePullPolicy }}

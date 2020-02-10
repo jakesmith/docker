@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-esp
-          args: ["--daliServers {{ tpl .Values.dali . }}"]
+          args: ["--daliServers {{ tpl .Values.global.dali . }}"]
           image: {{ .Values.image }}
           imagePullPolicy: {{ .Values.global.imagePullPolicy }}
           ports:
