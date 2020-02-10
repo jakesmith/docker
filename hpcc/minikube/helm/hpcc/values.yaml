@@ -1,0 +1,10 @@
+# Default values for hpcc.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  imagePullPolicy: IfNotPresent
+  dali: "{{ .Release.Name }}-dali"
+
+cluster:
+  name: "{{ .Release.Name }}"

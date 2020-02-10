@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-eclagent
+spec:
+  replicas: {{ .Values.replicas }} 
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-eclagent
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-eclagent
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-eclagent
+          args: ["--daliServers {{ tpl .Values.dali . }}", "--clusters {{ tpl .Values.clusters . }}"]
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}

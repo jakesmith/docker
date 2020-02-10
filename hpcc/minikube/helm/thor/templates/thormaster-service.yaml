@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-thormaster
+  labels:
+    app: {{ .Release.Name }}-thormaster
+spec:
+  ports:
+    - port: {{ .Values.master.port }}
+  selector:
+    app: {{ .Release.Name }}-thormaster

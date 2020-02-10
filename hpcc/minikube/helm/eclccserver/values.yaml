@@ -1,0 +1,11 @@
+# Default values for eclccserver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image: jcs/hpcc-eclccserver:latest
+replicas: 1
+dali: thedali
+clusters: thecluster
+
+global:
+  imagePullPolicy: Never

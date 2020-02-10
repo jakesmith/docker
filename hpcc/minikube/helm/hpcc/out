@@ -1,0 +1,237 @@
+NAME: test23
+LAST DEPLOYED: Mon Feb 10 15:22:21 2020
+NAMESPACE: default
+STATUS: pending-install
+REVISION: 1
+TEST SUITE: None
+USER-SUPPLIED VALUES:
+{}
+
+COMPUTED VALUES:
+cluster:
+  eclagent:
+    clusters: '{{ .Values.name }}'
+    dali: '{{ .Values.global.dali }}-dali'
+    global:
+      dali: '{{ .Release.Name }}-dali'
+      imagePullPolicy: IfNotPresent
+    image: jcs/hpcc-eclagent:latest
+    replicas: 1
+  eclccserver:
+    clusters: '{{ .Values.name }}'
+    dali: '{{ .Values.global.dali }}-dali'
+    global:
+      dali: '{{ .Release.Name }}-dali'
+      imagePullPolicy: IfNotPresent
+    image: jcs/hpcc-eclccserver:latest
+    replicas: 1
+  global:
+    dali: '{{ .Release.Name }}-dali'
+    imagePullPolicy: IfNotPresent
+  name: '{{ .Release.Name }}'
+  thor:
+    clusters: '{{ .Values.name }}'
+    dali: '{{ .Values.global.dali }}-dali'
+    global:
+      dali: '{{ .Release.Name }}-dali'
+      imagePullPolicy: IfNotPresent
+    master:
+      image: jcs/hpcc-thormaster:latest
+      port: 20000
+    slave:
+      image: jcs/hpcc-thorslave:latest
+      port: 20100
+    slaves: 2
+dali:
+  global:
+    dali: '{{ .Release.Name }}-dali'
+    imagePullPolicy: IfNotPresent
+  image: jcs/hpcc-dali:latest
+  port: 7070
+esp:
+  dali: thedali
+  global:
+    dali: '{{ .Release.Name }}-dali'
+    imagePullPolicy: IfNotPresent
+  image: jcs/hpcc-esp:latest
+  port: 8010
+  replicas: 1
+global:
+  dali: '{{ .Release.Name }}-dali'
+  imagePullPolicy: IfNotPresent
+
+HOOKS:
+MANIFEST:
+---
+# Source: hpcc/charts/cluster/charts/thor/templates/thormaster-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test23-thormaster
+  labels:
+    app: test23-thormaster
+spec:
+  ports:
+    - port: 20000
+  selector:
+    app: test23-thormaster
+---
+# Source: hpcc/charts/dali/templates/dali-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test23-dali
+  labels:
+    app: test23-dali
+spec:
+  selector:
+    app: test23-dali
+  ports:
+    - port: 7070
+---
+# Source: hpcc/charts/esp/templates/esp-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test23-esp
+  labels:
+    app: test23-esp
+spec:
+  selector:
+    app: test23-esp
+  type: LoadBalancer
+  ports:
+    - port: 8010
+---
+# Source: hpcc/charts/cluster/charts/eclagent/templates/eclagent.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test23-eclagent
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: test23-eclagent
+  template:
+    metadata:
+      labels:
+        app: test23-eclagent
+    spec:
+      containers:
+        - name: test23-eclagent
+          args: ["--daliServers {{ .Release.Name }}-dali-dali", "--clusters "]
+          image: jcs/hpcc-eclagent:latest
+          imagePullPolicy: IfNotPresent
+---
+# Source: hpcc/charts/cluster/charts/eclccserver/templates/eclccserver.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test23-eclccserver
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: test23-eclccserver
+  template:
+    metadata:
+      labels:
+        app: test23-eclccserver
+    spec:
+      containers:
+        - name: test23-eclccserver
+          args: ["--daliServers={{ .Release.Name }}-dali-dali", "--clusters="]
+          image: jcs/hpcc-eclccserver:latest
+          imagePullPolicy: IfNotPresent
+---
+# Source: hpcc/charts/cluster/charts/thor/templates/thormaster.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test23-thormaster
+spec:
+  selector:
+    matchLabels:
+      app: test23-thormaster
+  template:
+    metadata:
+      labels:
+        app: test23-thormaster
+    spec:
+      containers:
+        - name: test23-thormaster
+          args: ["numSlaves=2", "DALISERVERS={{ .Release.Name }}-dali-dali", "clusters="]
+          image: jcs/hpcc-thormaster:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 20000
+---
+# Source: hpcc/charts/cluster/charts/thor/templates/thorslave.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test23-thorslave
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: test23-thorslave
+  template:
+    metadata:
+      labels:
+        app: test23-thorslave
+    spec:
+      containers:
+        - name: test23-thorslave
+          image: jcs/hpcc-thorslave:latest
+          args: ["MASTER=test23-thormaster"]
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 20100
+---
+# Source: hpcc/charts/dali/templates/dali.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test23-dali
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test23-dali
+  template:
+    metadata:
+      labels:
+        app: test23-dali
+    spec:
+      containers:
+        - name: test23-dali
+          image: jcs/hpcc-dali:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7070
+---
+# Source: hpcc/charts/esp/templates/esp.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test23-esp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test23-esp
+  template:
+    metadata:
+      labels:
+        app: test23-esp
+    spec:
+      containers:
+        - name: test23-esp
+          args: ["--daliServers thedali"]
+          image: jcs/hpcc-esp:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8010
+

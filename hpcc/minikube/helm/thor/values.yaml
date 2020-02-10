@@ -1,0 +1,18 @@
+# Default values for thor.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+slaves: 2
+dali: thedali
+clusters: thecluster
+
+master:
+  image: jcs/hpcc-thormaster:latest
+  port: 20000
+
+slave:
+  image: jcs/hpcc-thorslave:latest
+  port: 20100
+
+global:
+  imagePullPolicy: Never

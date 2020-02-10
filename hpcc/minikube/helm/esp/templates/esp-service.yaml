@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-esp
+  labels:
+    app: {{ .Release.Name }}-esp
+spec:
+  selector:
+    app: {{ .Release.Name }}-esp
+  type: LoadBalancer
+  ports:
+    - port: {{ .Values.port }}
+

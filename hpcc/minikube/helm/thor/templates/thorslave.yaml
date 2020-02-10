@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-thorslave
+spec:
+  replicas: {{ .Values.slaves }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-thorslave
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-thorslave
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-thorslave
+          image: {{ .Values.slave.image }}
+          args: ["MASTER={{ .Release.Name }}-thormaster"]
+          imagePullPolicy: Never
+          ports:
+            - containerPort: {{ .Values.slave.port }}

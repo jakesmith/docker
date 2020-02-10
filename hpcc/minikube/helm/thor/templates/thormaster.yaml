@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-thormaster
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-thormaster
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-thormaster
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-thormaster
+          args: ["numSlaves={{ .Values.slaves }}", "DALISERVERS={{ tpl .Values.dali . }}", "clusters={{ tpl .Values.clusters . }}"]
+          image: {{ .Values.master.image }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.master.port }}

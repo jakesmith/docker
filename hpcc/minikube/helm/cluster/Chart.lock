@@ -1,0 +1,12 @@
+dependencies:
+- name: eclccserver
+  repository: https://jakesmith.github.io/Helm
+  version: 0.1.0
+- name: eclagent
+  repository: https://jakesmith.github.io/Helm
+  version: 0.1.0
+- name: thor
+  repository: https://jakesmith.github.io/Helm
+  version: 0.1.0
+digest: sha256:34dcf9da046f5acb1b58da1cbca14b4b7f00f0394430a69842448fd0276c0376
+generated: "2020-02-10T15:20:18.4693656Z"

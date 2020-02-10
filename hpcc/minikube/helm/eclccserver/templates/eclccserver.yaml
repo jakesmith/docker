@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-eclccserver
+spec:
+  replicas: {{ .Values.replicas }} 
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-eclccserver
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-eclccserver
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-eclccserver
+          args: ["--daliServers={{ tpl .Values.dali . }}", "--clusters={{ tpl .Values.clusters . }}"]
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}

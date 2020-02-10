@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-esp
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-esp
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-esp
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-esp
+          args: ["--daliServers {{ tpl .Values.dali . }}"]
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.port }}

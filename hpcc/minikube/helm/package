@@ -1,0 +1,8 @@
+#!/bin/bash
+
+helm package dali
+helm package esp
+helm package eclccserver
+helm package eclagent
+helm package thor
+mv *.tgz ~/git/Helm

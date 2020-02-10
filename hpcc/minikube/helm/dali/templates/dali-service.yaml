@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-dali
+  labels:
+    app: {{ .Release.Name }}-dali
+spec:
+  selector:
+    app: {{ .Release.Name }}-dali
+  ports:
+    - port: {{ .Values.port }}

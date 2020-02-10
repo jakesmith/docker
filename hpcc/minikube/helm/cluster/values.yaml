@@ -1,0 +1,21 @@
+# Default values for hpcc.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: thecluster
+
+global:
+  imagePullPolicy: IfNotPresent
+  dali: thedali
+
+eclccserver:
+  dali: "{{ .Values.global.dali }}"
+  clusters: "{{ .Values.name }}"
+
+eclagent:
+  dali: "{{ .Values.global.dali }}"
+  clusters: "{{ .Values.name }}"
+
+thor:
+  dali: "{{ .Values.global.dali }}"
+  clusters: "{{ .Values.name }}"

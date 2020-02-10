@@ -1,0 +1,12 @@
+dependencies:
+- name: dali
+  repository: https://jakesmith.github.io/Helm
+  version: 0.1.0
+- name: esp
+  repository: https://jakesmith.github.io/Helm
+  version: 0.1.0
+- name: cluster
+  repository: https://jakesmith.github.io/Helm
+  version: 0.1.0
+digest: sha256:fe276eac619b1dd122df47264548f515f18abd7c7ad97ec792ecdfa6b8be744e
+generated: "2020-02-10T15:16:59.9687944Z"
