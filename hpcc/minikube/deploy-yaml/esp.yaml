@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hpcc-esp
+  name: myesp
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: esp
+      app: myesp
   template:
     metadata:
       labels:
-        app: esp
+        app: myesp
     spec:
       containers:
-        - name: esp
+        - name: myesp
           image: jcs/hpcc-esp:latest
           imagePullPolicy: Never
           ports:

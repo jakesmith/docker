@@ -1,4 +1,4 @@
-<EclCCserver build="_" daliServers="hpcc-dali" name="myeclccserver" traceLevel="1">
+<EclCCserver build="_" daliServers="mydali" name="myeclccserver" traceLevel="1">
   <Option name="maxCompileThreads" value="2"/>
   <Option name="passDFSToEclcc" value="1"/>
 </EclCCserver>

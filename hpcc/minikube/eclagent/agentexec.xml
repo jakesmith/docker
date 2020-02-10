@@ -1,4 +1,4 @@
-<agentexec allowedPipePrograms="*" daliServers="hpcc-dali" logDir="" name="myeclagent" pluginDirectory="/home/build/hpccinstall/opt/HPCCSystems/plugins" traceLevel="0" thorConnectTimeout="600">
+<agentexec allowedPipePrograms="*" daliServers="mydali" logDir="" name="myeclagent" pluginDirectory="/home/build/hpccinstall/opt/HPCCSystems/plugins" traceLevel="0" thorConnectTimeout="600">
   <Directories name="HPCCSystems">
    <Category dir="/home/build/hpccinstall/var/log/[NAME]/[INST]" name="log"/>
    <Category dir="/home/build/hpccinstall/var/lib/[NAME]/[INST]" name="run"/>

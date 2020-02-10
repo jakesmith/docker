@@ -1,8 +1,8 @@
 #!/bin/bash
 
 $(dirname $0)/stopthor &
-docker stop hpcc-eclagent &
-docker stop hpcc-eclccserver &
-docker stop hpcc-esp &
-docker stop hpcc-dali &
+docker stop myeclagent &
+docker stop myeclccserver &
+docker stop myesp &
+docker stop mydali &
 wait

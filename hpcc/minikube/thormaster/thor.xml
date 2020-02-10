@@ -1,4 +1,4 @@
-<Thor xmlns:fo="http://www.w3.org/1999/XSL/Format" name="mythor" daliServers="hpcc-dali" pluginsPath="/home/build/hpccinstall/opt/HPCCSystems/plugins/"
+<Thor xmlns:fo="http://www.w3.org/1999/XSL/Format" name="mythor" daliServers="mydali" pluginsPath="/home/build/hpccinstall/opt/HPCCSystems/plugins/"
       replicateAsync="false" watchdogEnabled="true" watchdogProgressEnabled="true" globalMemorySize="1024">
   <Debug/>
   <Directories name="HPCCSystems">

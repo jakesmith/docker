@@ -17,21 +17,21 @@ fi
 DOCKEROPTS="-d"
 
 # dali
-docker run $DOCKEROPTS --rm --net ${netName} --privileged --name hpcc-dali -h hpcc-dali -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-dali:latest
+docker run $DOCKEROPTS --rm --net ${netName} --privileged --name mydali -h mydali -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-dali:latest
 
 #esp
-docker run $DOCKEROPTS -p 8010:8010 --rm --net ${netName} --privileged --name hpcc-esp -h hpcc-esp -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-esp:latest
+docker run $DOCKEROPTS -p 8010:8010 --rm --net ${netName} --privileged --name myesp -h myesp -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-esp:latest
 
 # eclccserver
-docker run $DOCKEROPTS --rm --net ${netName} --privileged --name hpcc-eclccserver -h hpcc-eclccserver -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-eclccserver:latest
+docker run $DOCKEROPTS --rm --net ${netName} --privileged --name myeclccserver -h myeclccserver -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-eclccserver:latest
 
 # agentexec
-docker run $DOCKEROPTS --rm --net ${netName} --privileged --name hpcc-eclagent -h hpcc-eclagent -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-eclagent:latest
+docker run $DOCKEROPTS --rm --net ${netName} --privileged --name myeclagent -h myeclagent -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-eclagent:latest
 
 # thormaster
-docker run $DOCKEROPTS --rm --net ${netName} --privileged --name hpcc-thormaster -h hpcc-thormaster -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-thormaster:latest numThorSlaves=${numThorSlaves}
+docker run $DOCKEROPTS --rm --net ${netName} --privileged --name mythormaster -h mythormaster -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-thormaster:latest numThorSlaves=${numThorSlaves}
 
-thormasterdkip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hpcc-thormaster)
+thormasterdkip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mythormaster)
 
 for slave in $(seq 1 ${numThorSlaves})
 do

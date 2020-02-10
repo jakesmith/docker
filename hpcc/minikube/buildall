@@ -3,6 +3,13 @@
 pushd .
 cd $(dirname $0)
 
+cd ../hpccbuildfromsrc/hpccbuild-install
+./build ../buildctx
+
+popd
+pushd .
+cd $(dirname $0)
+
 cd baseimage
 ./build
 cd ../dali

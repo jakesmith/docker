@@ -1,9 +1,9 @@
 #!/bin/bash
 
-kubectl create deployment hpcc-dali --image=jcs/hpcc-dali:v1
-kubectl create deployment hpcc-esp --image=jcs/hpcc-esp:v1
-#kubectl create deployment hpcc-eclccserver --image=jcs/hpcc-eclccserver:v1
+kubectl create deployment mydali --image=jcs/hpcc-dali:v1
+kubectl create deployment myesp --image=jcs/hpcc-esp:v1
+#kubectl create deployment myeclccserver --image=jcs/hpcc-eclccserver:v1
 
 #kubectl expose deployment hpcc-dali --port=7070 --name hpcc-dali
-kubectl expose deployment hpcc-dali --type=LoadBalancer --port=7070 --name hpcc-dali
-kubectl expose deployment hpcc-esp --type=LoadBalancer --port=8010 --name hpcc-esp
+kubectl expose deployment hpcc-dali --type=LoadBalancer --port=7070 --name mydali
+kubectl expose deployment myesp --type=LoadBalancer --port=8010 --name myesp

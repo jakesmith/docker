@@ -14,4 +14,4 @@ if [ -z "$chknet" ]; then
 fi
 
 
-docker run $DOCKEROPTS --rm --net mycluster1net_10.1.0 --privileged --name hpcc-dali -h hpcc-dali -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-dali:latest $@
+docker run $DOCKEROPTS --rm --net mycluster1net_10.1.0 --privileged --name mydali -h mydali -v /home/jsmith/git/docker/hpcc/shared/:/shared -v /home/jsmith/git/docker/hpcc/clusterFolders/mycluster1/:/data -it jcs/hpcc-dali:latest $@
