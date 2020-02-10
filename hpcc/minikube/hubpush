@@ -1,0 +1,16 @@
+docker tag jcs/hpccbuild-install jakesmith0/hpccbuild-install:v1
+docker push jakesmith0/hpccbuild-install:v1
+docker tag jcs/hpcc-baseimage jakesmith0/hpcc-baseimage:v1
+docker push jakesmith0/hpcc-baseimage:v1
+docker tag jcs/hpcc-dali jakesmith0/hpcc-dali:v1
+docker push jakesmith0/hpcc-dali:v1
+docker tag jcs/hpcc-esp jakesmith0/hpcc-esp:v1
+docker push jakesmith0/hpcc-esp:v1
+docker tag jcs/hpcc-eclccserver jakesmith0/hpcc-eclccserver:v1
+docker push jakesmith0/hpcc-eclccserver:v1
+docker tag jcs/hpcc-eclagent jakesmith0/hpcc-eclagent:v1
+docker push jakesmith0/hpcc-eclagent:v1
+docker tag jcs/hpcc-thormaster jakesmith0/hpcc-thormaster:v1
+docker push jakesmith0/hpcc-thormaster:v1
+docker tag jcs/hpcc-thorslave jakesmith0/hpcc-thorslave:v1
+docker push jakesmith0/hpcc-thorslave:v1
