@@ -19,3 +19,10 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: {{ .Values.slave.port }}
+          volumeMounts:
+            - mountPath: /mnt/thor
+              name: mythorstorage
+      volumes:
+        - name: mythorstorage
+          persistentVolumeClaim:
+            claimName: thorcluster-pv-claim

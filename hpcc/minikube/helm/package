@@ -10,6 +10,6 @@ mv *.tgz ~/git/Helm
 pushd .
 cd ~/git/Helm
 helm repo index .
-popd
 git commit -a -m 'wip'
 git push origin
+popd
