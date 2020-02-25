@@ -1,0 +1,3 @@
+# Validate that dali has been set
+{{ required "A valid .Values.global.dali entry required!" .Values.global.dali }}
+
