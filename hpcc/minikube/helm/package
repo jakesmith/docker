@@ -1,10 +1,20 @@
 #!/bin/bash
 
-helm package dali
-helm package esp
 helm package eclccserver
 helm package eclagent
 helm package thor
+mv *.tgz ~/git/Helm
+pushd .
+cd ~/git/Helm
+helm repo index .
+git commit -a -m 'wip'
+git push origin
+popd
+helm package dali
+helm package esp
+echo "Waiting for 60 secs, for github to catchup!"
+sleep 60
+helm dependency update thorcluster
 helm package thorcluster
 mv *.tgz ~/git/Helm
 pushd .
@@ -13,3 +23,6 @@ helm repo index .
 git commit -a -m 'wip'
 git push origin
 popd
+echo "Waiting for 60 secs, for github to catchup!"
+sleep 60
+helm dependency update hpcc

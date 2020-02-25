@@ -1,0 +1,9 @@
+NAME: testthor
+LAST DEPLOYED: Tue Feb 25 02:14:26 2020
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+# Validate that dali has been set
+somedali

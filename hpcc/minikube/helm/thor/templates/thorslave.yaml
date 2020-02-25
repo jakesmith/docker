@@ -15,7 +15,7 @@ spec:
       containers:
         - name: {{ .Release.Name }}-thorslave
           image: {{ .Values.slave.image }}
-          args: ["MASTER={{ .Release.Name }}-thormaster"]
+          args: ["MASTER={{ .Release.Name }}-thormaster-svc"]
           imagePullPolicy: Never
           ports:
             - containerPort: {{ .Values.slave.port }}
@@ -25,4 +25,4 @@ spec:
       volumes:
         - name: mythorstorage
           persistentVolumeClaim:
-            claimName: thorcluster-pv-claim
+            claimName: {{ .Release.Name }}-thor-pv-claim

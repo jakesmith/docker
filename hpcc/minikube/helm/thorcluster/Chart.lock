@@ -1,12 +1,12 @@
 dependencies:
-- name: dali
+- name: eclccserver
   repository: https://jakesmith.github.io/Helm
   version: 0.1.0
-- name: esp
+- name: eclagent
   repository: https://jakesmith.github.io/Helm
   version: 0.1.0
-- name: thorcluster
+- name: thor
   repository: https://jakesmith.github.io/Helm
   version: 0.1.0
-digest: sha256:1ff81b8199b90957a550bb0120128170b70beefb024a9c85650b2ba9f0f31cf6
-generated: "2020-02-25T01:59:51.7715597Z"
+digest: sha256:34dcf9da046f5acb1b58da1cbca14b4b7f00f0394430a69842448fd0276c0376
+generated: "2020-02-12T19:06:27.8219021Z"
